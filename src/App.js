@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ActiveTable from './components/ActiveTable'
-import SummaryTable from './SummaryTable'
+import SummaryTable from './components/summaryTable'
 
 
 function App() {
@@ -21,11 +21,23 @@ function App() {
  
   function removeHandler(id){
     setNotes(notes.filter(note => note.id !== id))
+    console.log(notes)
   }
+  function reArchiveHandler(id){
+    setNotes(notes.map(note => {
+      if(note.id === id){
+        note.archived = !note.archived
+      }
+      return note
+    }))
+  }
+  useEffect(() => {
+    console.log(notes)
+  }, [notes])
   return (
     <div className="wrapper">
         <div className="active-table">
-          <ActiveTable notes={notes} category={category} removeHandler={removeHandler} />
+          <ActiveTable notes={notes} category={category} removeHandler={removeHandler}  reArchiveHandler={reArchiveHandler} />
         </div>
         <div className="create-button__wrapper">
             <button className="create-button">Create Note</button>

@@ -1,6 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import { notesReducer } from '../redux/notesReducer';
+import {deleteNote} from '../redux/actions'
 
-function ActiveTableItem({note, removeHandler}){
+function ActiveTableItem({note, removeHandler, reArchiveHandler}){
     const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
     ];
@@ -13,11 +16,11 @@ function ActiveTableItem({note, removeHandler}){
             <td className="table__item">  </td>
             <td className="table__item">
                 <button className="edit-button" data-id={note.id}>Редактировать</button>
-                <button className="archive-button" data-id={note.id}>Архивировать</button>
+                <button className="archive-button" data-id={note.id} onClick={() => {reArchiveHandler(note.id)}}>Архивировать</button>
                 <button className="remove-button" data-id={note.id} onClick={() =>{removeHandler(note.id)}}>Удалить</button>
             </td>
     </tr>
     )
 }
 
-export default ActiveTableItem
+export default connect(null, {deleteNote})(ActiveTableItem)

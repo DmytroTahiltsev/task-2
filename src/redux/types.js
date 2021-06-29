@@ -1,0 +1,3 @@
+export const CREATE_NOTE = 'CREATE_POST'
+export const DELETE_NOTE = 'DELETE_NOTE'
+export const REARCHIVE_NOTE = 'REARCHIVE_NOTE'

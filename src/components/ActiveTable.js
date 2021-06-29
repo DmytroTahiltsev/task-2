@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ActiveTableItem from './ActiveTableItem';
+import {connect} from 'react-redux'
+import { notesReducer } from '../redux/notesReducer';
+import {deleteNote, reArchiveNote} from '../redux/actions'
 
-function ActiveTable(props){
+const ActiveTable = (props) => {
 
     return(
         <table className="notes-table">
@@ -12,12 +15,21 @@ function ActiveTable(props){
                 <th>Content</th>
                 <th>Dates</th>
             </tr>
-            {props.notes.filter(note => !note.archived).map((note, i) => {
-                return <ActiveTableItem note={note} key={note.id} removeHandler={props.removeHandler} />
+            {props.notesState.notes.filter(note => !note.archived).map((note, i) => {
+                return <ActiveTableItem note={note} key={note.id} reArchiveHandler={props.reArchiveNote} removeHandler={props.deleteNote} /> 
 
             })}
+            <tr>
+                <td></td>
+            </tr>
+
         </table>
     )
 }
 
-export default ActiveTable
+const mapStateToProps = state => {
+    console.log(state)
+    return state
+}
+
+export default connect(mapStateToProps, {deleteNote, reArchiveNote})(ActiveTable)
