@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import ActiveTable from './components/ActiveTable'
 import SummaryTable from './components/summaryTable'
 import ArchiveTable from './components/ArchiveTable'
-import CreateForm from './components/CreateForm'
+import CreateForm from './components/createForm'
 import EditForm from './components/EditForm'
 import {connect} from 'react-redux'
 import { notesReducer } from './redux/notesReducer';
