@@ -12,7 +12,7 @@ const ArchiveTable = (props) => {
                 <th>Name</th>
                 <th>Content</th>
             </tr>
-            {props.notes.filter(note => note.archived).map((note, i) => {
+            {props.notes.map((note, i) => {
                 return <ArchiveTableItem note={note} key={note.id} reArchiveHandler={props.reArchiveNote}/> 
 
             })}
