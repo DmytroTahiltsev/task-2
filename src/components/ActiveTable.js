@@ -5,6 +5,13 @@ import { notesReducer } from '../redux/notesReducer';
 import {deleteNote, reArchiveNote} from '../redux/actions'
 
 const ActiveTable = (props) => {
+  if(!props.notes.filter(note => !note.archived).length){
+    return(
+      <table className="notes-table">
+        <caption><b>NO ACTIVE NOTES</b></caption>
+      </table>
+    )
+  }
 
     return(
         <table className="notes-table">
@@ -15,21 +22,13 @@ const ActiveTable = (props) => {
                 <th>Content</th>
                 <th>Dates</th>
             </tr>
-            {props.notesState.notes.filter(note => !note.archived).map((note, i) => {
-                return <ActiveTableItem note={note} key={note.id} reArchiveHandler={props.reArchiveNote} removeHandler={props.deleteNote} /> 
+            {props.notes.filter(note => !note.archived).map((note, i) => {
+                return <ActiveTableItem note={note} key={note.id} reArchiveHandler={props.reArchiveNote} removeHandler={props.deleteNote} editHandler={props.editNoteId} /> 
 
             })}
-            <tr>
-                <td></td>
-            </tr>
-
         </table>
     )
 }
 
-const mapStateToProps = state => {
-    console.log(state)
-    return state
-}
 
-export default connect(mapStateToProps, {deleteNote, reArchiveNote})(ActiveTable)
+export default ActiveTable

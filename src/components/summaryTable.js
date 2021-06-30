@@ -5,11 +5,11 @@ import { notesReducer } from '../redux/notesReducer';
 
 
 function SummaryTable(props){
-    props.notesState.category.forEach(item => {
+    props.category.forEach(item => {
         item.activeCount=0
         item.archiveCount=0
     })
-    props.notesState.notes.forEach(item => {
+    props.notes.forEach(item => {
         if(!item.archived){
             item.category.activeCount++
         }
@@ -24,14 +24,11 @@ function SummaryTable(props){
                 <th>Active</th>
                 <th>Archieved</th>
             </tr>
-            {props.notesState.category.map(cat => {
+            {props.category.map(cat => {
                 return <SummaryTableItem cat={cat} key={cat.id} />
             })}
         </table>
     )
 }
-const mapStateToProps = state => {
-    console.log(state)
-    return state
-}
-export default connect(mapStateToProps)(SummaryTable)
+
+export default SummaryTable

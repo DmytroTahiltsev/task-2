@@ -1,3 +1,6 @@
 export const CREATE_NOTE = 'CREATE_POST'
 export const DELETE_NOTE = 'DELETE_NOTE'
 export const REARCHIVE_NOTE = 'REARCHIVE_NOTE'
+export const EDIT_NOTE_ID = 'EDIT_NOTE_ID'
+export const EDIT_NOTE = 'EDIT_NOTE'
+export const EDIT_NOTE_CLOSE = 'EDIT_NOTE_CLOSE'

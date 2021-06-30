@@ -1,4 +1,4 @@
-import {CREATE_NOTE, DELETE_NOTE, REARCHIVE_NOTE} from './types'
+import {CREATE_NOTE, DELETE_NOTE, REARCHIVE_NOTE, EDIT_NOTE_ID, EDIT_NOTE, EDIT_NOTE_CLOSE} from './types'
 
 const category = [
     {id:1, name: 'Task', activeCount: 0, archiveCount: 0},
@@ -18,7 +18,8 @@ const notes = [
 
 const initialState = {
     category: category,
-    notes: notes
+    notes: notes,
+    editId: null
 }
 
 export const notesReducer = (state = initialState, action) => {
@@ -33,7 +34,19 @@ export const notesReducer = (state = initialState, action) => {
                     note.archived = !note.archived
                 }
                 return note
-            })} 
+            })}
+        case EDIT_NOTE_ID:
+            return {...state, editId: action.payload}
+        case EDIT_NOTE:{
+            return{...state, notes: state.notes.map(note => {
+                if(note.id === action.payload.id){
+                    return action.payload
+                }
+                return note
+            })}
+        }
+        case EDIT_NOTE_CLOSE:
+            return{...state, editId:action.payload}
         default: return state
     }
 

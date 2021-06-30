@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import ActiveTable from './components/ActiveTable'
 import SummaryTable from './components/summaryTable'
+import ArchiveTable from './components/ArchiveTable'
+import CreateForm from './components/CreateForm'
+import EditForm from './components/EditForm'
+import {connect} from 'react-redux'
+import { notesReducer } from './redux/notesReducer';
+import {deleteNote, reArchiveNote, editNoteId} from './redux/actions'
 
-
-function App() {
-  const [category, setCategory] = useState([
+function App(props) {
+  /*const [category, setCategory] = useState([
       {id:1, name: 'Task', activeCount: 0, archiveCount: 0},
       {id:2, name:'Random Thought', activeCount: 0, archiveCount: 0},
       {id:3, name:'Idea', activeCount: 0, archiveCount: 0}
@@ -17,38 +22,33 @@ function App() {
       {id: 5, name: 'Books', created: new Date(2021, 4, 15), category: category[0], content: 'The Lean Startup', archived: false},
       {id: 6, name: 'Note 6', created: new Date(2021, 4, 30), category: category[0], content: 'Note 6 content', archived: false},
       {id: 7, name: 'Note 7', created: new Date(2021, 5, 2), category: category[1], content: 'Note 7 content', archived: true},
-    ])
- 
-  function removeHandler(id){
-    setNotes(notes.filter(note => note.id !== id))
-    console.log(notes)
-  }
-  function reArchiveHandler(id){
-    setNotes(notes.map(note => {
-      if(note.id === id){
-        note.archived = !note.archived
-      }
-      return note
-    }))
-  }
-  useEffect(() => {
-    console.log(notes)
-  }, [notes])
+    ])*/
+
+
+  //const editNote = props.notesState.notes.find(note => note.id == editItemId)
+console.log(props)
   return (
     <div className="wrapper">
         <div className="active-table">
-          <ActiveTable notes={notes} category={category} removeHandler={removeHandler}  reArchiveHandler={reArchiveHandler} />
+          <ActiveTable notes={props.notesState.notes} reArchiveNote={props.reArchiveNote}  deleteNote={props.deleteNote} editNoteId={props.editNoteId} />
         </div>
         <div className="create-button__wrapper">
-            <button className="create-button">Create Note</button>
+          <CreateForm />
         </div>
-        <div className="edit-form__wrapper"></div>
+        <div className="edit-form__wrapper">
+          {props.notesState.editId && <EditForm />}
+
+        </div>
         <div className="summary-table__wrapper">
-          <SummaryTable  notes={notes} category={category}/>
+          <SummaryTable notes={props.notesState.notes} category={props.notesState.category} />
         </div>
-        <div className="archive-table__wrapper"></div>
+        <div className="archive-table__wrapper">
+          <ArchiveTable notes={props.notesState.notes} reArchiveNote={props.reArchiveNote}/>
+        </div>
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = state => {
+  return state
+}
+export default connect(mapStateToProps, {deleteNote, reArchiveNote, editNoteId})(App);
