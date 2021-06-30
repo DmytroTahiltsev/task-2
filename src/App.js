@@ -9,7 +9,7 @@ import { notesReducer } from './redux/notesReducer';
 import {deleteNote, reArchiveNote, editNoteId} from './redux/actions'
 
 function App(props) {
-
+ 
   return (
     <div className="wrapper">
         <div className="active-table">
